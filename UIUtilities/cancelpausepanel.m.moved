@@ -1,0 +1,49 @@
+function [fighandle, cancelButton, pauseButton] = cancelpausepanel
+% [fighandle, cancelButton, pauseButton] = cancelpausepanel
+% 
+% Program to create a uipanel with cancel and pause toggle buttions
+%
+% Input Arguments:
+%	None.
+% 
+% Output Arguments:
+% 	fighandle		handle to panel figure window
+% 	cancelButton	handle to cancel button
+% 	pauseButton		handle to pause toggle button
+%
+% See Also: HPCurve_ITD, HPSearch
+%--------------------------------------------------------------------------
+
+%--------------------------------------------------------------------------
+% Sharad J. Shanbhag
+% 
+% sshanbha@aecom.yu.edu
+%--------------------------------------------------------------------------
+% Revision History
+%
+%	3 August 09 (SJS):
+% 		- Created 
+%--------------------------------------------------------------------------
+
+fighandle = figure;
+s = get(fighandle, 'Position');
+
+set(fighandle,	'Position', [100 100 110 45], ...
+					'MenuBar', 'none', ...
+					'NumberTitle', 'off', ...
+					'Resize', 'off');
+
+
+cancelButton= uicontrol(	'Style',		'togglebutton', ...
+									'String',	'STOP', ...
+									'Position', [5 5 50 35], ...
+									'ForegroundColor', [1 0 0]);
+
+pauseButton = uicontrol(	'Style',		'togglebutton', ...
+									'String',	'Pause', ...
+									'Position', [65 5 50 35], ... 
+									'ForegroundColor', [0 1 0]);
+
+drawnow
+
+
