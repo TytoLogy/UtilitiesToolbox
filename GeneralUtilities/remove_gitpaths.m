@@ -1,4 +1,4 @@
-%function gitlesspathstr = remove_gitpaths(pathstr)
+function gitlesspathstr = remove_gitpaths(pathstr)
 %------------------------------------------------------------------------
 % gitlesspathstr = remove_gitpaths(pathstr)
 %------------------------------------------------------------------------
