@@ -1,5 +1,9 @@
 function outval = query_uservalue(msgtxt, default)
-%
+%------------------------------------------------------------------------
+% outval = query_uservalue(msgtxt, default)
+%------------------------------------------------------------------------
+% UtilitiesToolbox -> GeneralUtilities
+%------------------------------------------------------------------------
 %	prints message msgtxt and returns outval
 %	
 %	default:
@@ -12,7 +16,17 @@ function outval = query_uservalue(msgtxt, default)
 %	value to be in the range default(1) <= input value < default(2)
 %
 %	if default is 
+%------------------------------------------------------------------------
 
+%------------------------------------------------------------------------
+% Sharad J. Shanbhag
+% sshanbhag@neomed.edu
+%------------------------------------------------------------------------
+% Created: ?????? long long ago... (SJS)
+%
+% Revisions:
+%	29 Aug 2012 (SJS): updated documentation
+%------------------------------------------------------------------------
 
 if nargin ~= 2
 	error('must provide default value');

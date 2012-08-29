@@ -97,7 +97,7 @@ else
     FigPos(1:2) = [(GCBFPos(1) + GCBFPos(3) / 2) - FigWidth / 2, ...
                    (GCBFPos(2) + GCBFPos(4) / 2) - FigHeight / 2];
 end
-FigPos(3:4)=[FigWidth FigHeight];
+FigPos(3:4)=[FigWidth FigHeight] * 1.25;
 set(hObject, 'Position', FigPos);
 set(hObject, 'Units', OldUnits);
 
