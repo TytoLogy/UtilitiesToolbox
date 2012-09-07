@@ -1,11 +1,35 @@
 function outval = between(val, low, high)
-%function outval = between(val, low, high)
-%	returns 1 if low <= val <= high, 0 otherwise
+%------------------------------------------------------------------------
+% outval = between(val, low, high)
+%------------------------------------------------------------------------
+% UtilitiesToolbox:GeneralUtilities
+%------------------------------------------------------------------------
+% returns 1 if low <= val <= high, 0 otherwise
+% 
+%------------------------------------------------------------------------
+% Input Arguments:
+% 	val	value or vector of values to check
+% 	low	low limit value
+% 	high	high limit value
+%	
+% Output Arguments:
+% 	outVal	1 if val is in range [low, high], otherwise 0
 %
+%------------------------------------------------------------------------
+% See also: max, min
+%------------------------------------------------------------------------
 
-%	Sharad Shanbhag
-%	sshanbha@aecom.yu.edu
+%------------------------------------------------------------------------
+% Sharad J. Shanbhag
+% sshanbhag@neomed.edu
+%------------------------------------------------------------------------
+% Created: ??? (SJS)
+%
+% Revisions:
+%	6 Sep 2012 (SJS): updated email, comments, vectorized code
+%------------------------------------------------------------------------
 
+%% check inputs
 if nargin ~= 3
 	error('between: need val, low and high arguments');
 end
@@ -14,7 +38,13 @@ if high <= low
 	error('between: high must be greater than low value');
 end
 
-outval = 0;
-if (val >= low) & (val <= high)
-	outval = 1;
-end
+%% process
+outval = (val >= low) & (val <= high);
+
+% old code (replaced 6 sept 2012)
+% outval = 0;
+% if (val >= low) & (val <= high)
+% 	outval = 1;
+% end
+
+

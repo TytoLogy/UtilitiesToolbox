@@ -2,7 +2,8 @@ function outVal = nancheck(inVal, replaceVal)
 %------------------------------------------------------------------------
 % outVal = nancheck(inVal, replaceVal)
 %------------------------------------------------------------------------
-% 
+% UtilitiesToolbox:GeneralUtilities
+%------------------------------------------------------------------------
 % replaces NaN values in inVal with 0 (or replaceVal, if given)
 % 
 %------------------------------------------------------------------------
@@ -23,19 +24,20 @@ function outVal = nancheck(inVal, replaceVal)
 
 %------------------------------------------------------------------------
 % Sharad J. Shanbhag
-% sshanbhag@neoucom.edu
+% sshanbhag@neomed.edu
 %------------------------------------------------------------------------
 % Created: 19 January, 2011 (SJS)
 %
 % Revisions:
+%	6 Sep 2012 (SJS): updated email, comments
 %------------------------------------------------------------------------
 
-% check if replaceVal was given as input
+%% check if replaceVal was given as input
 if nargin ~= 2
 	replaceVal = 0;
 end
 
-% check for NaN, replace if found
+%% check for NaN, replace if found
 a = isnan(inVal);
 if sum(sum(a))
 	% NaN detected; find linear array positions of NaN values
@@ -44,5 +46,5 @@ if sum(sum(a))
 	inVal(nanvals) = replaceVal*ones(size(nanvals));
 end
 
-% set output
+%% set output
 outVal = inVal;
