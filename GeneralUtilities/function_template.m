@@ -18,7 +18,7 @@ function Output = function_template(Input)
 
 %------------------------------------------------------------------------
 % Sharad J. Shanbhag
-% sshanbhag@neoucom.edu
+% sshanbhag@neomed.edu
 %------------------------------------------------------------------------
 % Created: XX XXXX, 2011 (SJS)
 %
