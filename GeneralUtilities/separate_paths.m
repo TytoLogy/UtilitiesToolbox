@@ -1,8 +1,9 @@
 function paths = separate_paths(pathstr)
 %------------------------------------------------------------------------
-%
+% paths = separate_paths(pathstr)
 %------------------------------------------------------------------------
-% 
+% UtilitiesToolbox:GeneralUtilities
+%------------------------------------------------------------------------
 % given string of paths (from genpath), separates paths based on 
 % path separation string (;) and returns list of paths in cell
 % array paths
@@ -25,21 +26,33 @@ function paths = separate_paths(pathstr)
 % Created: 23 August, 2012 (SJS)
 %
 % Revisions:
-%------------------------------------------------------------------------
-% TO DO:
+%	5 Dec 2012 (SJS):
+%	 -	revised docs
+%	 -	added code to handle ';' (pc) vs ':' (mac) path separators
 %------------------------------------------------------------------------
 
-seplocs = find(pathstr == ';');
+% find locations of path separator characters
+if ispc
+	seplocs = find(pathstr == ';');
+elseif (ismac || isunix)
+	seplocs = find(pathstr == ':');
+end	
 
+% if none found, abort
 if isempty(seplocs)
-	paths = {};
+	if isempty(pathstr)
+		paths = {};
+	else
+		paths = pathstr;
+	end
 	return
-else
-	nsep = length(seplocs);
 end
 
+%  otherwise, get # of path separators
+nsep = length(seplocs);
+% allocate paths cell
 paths = cell(nsep, 1);
-
+% loop through separators, pull off path string and store in paths cell array
 start_index = 1;
 for n = 1:nsep
 	end_index = seplocs(n) - 1;
