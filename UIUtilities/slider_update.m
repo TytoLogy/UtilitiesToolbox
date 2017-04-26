@@ -42,11 +42,11 @@ if ~(strcmp(get(textObj, 'Style'), 'edit') || strcmp(get(textObj, 'Style'), 'tex
 	return;
 end
 
-val = read_ui_val(sliderObj);		
-if length(varargin)
-	update_ui_str(textObj, sprintf(varargin{1}, val));
-else
+val = read_ui_val(sliderObj);
+if isempty(varargin)
 	update_ui_str(textObj, sprintf('%.0f', val));
+else
+	update_ui_str(textObj, sprintf(varargin{1}, val));
 end
 	
 
