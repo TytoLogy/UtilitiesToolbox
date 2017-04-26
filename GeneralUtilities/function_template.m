@@ -20,7 +20,7 @@ function Output = function_template(Input)
 % Sharad J. Shanbhag
 % sshanbhag@neomed.edu
 %------------------------------------------------------------------------
-% Created: XX XXXX, 2011 (SJS)
+% Created: XX XXXX, 2016 (SJS)
 %
 % Revisions:
 %------------------------------------------------------------------------

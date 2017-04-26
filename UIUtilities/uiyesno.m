@@ -14,7 +14,10 @@ function varargout = uiyesno(varargin)
 %      applied to the GUI before uiyesno_OpeningFunction gets called.  An
 %      unrecognized property name or invalid value makes property application
 %      stop.  All inputs are passed to uiyesno_OpeningFcn via varargin.
-%
+%			
+% 			'title', <string>		custom title for popup
+% 			'string', <string>	custom string for question
+% 
 %      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
 %      instance to run (singleton)".
 %
