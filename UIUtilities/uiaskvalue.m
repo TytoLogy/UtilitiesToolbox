@@ -14,7 +14,33 @@ function varargout = uiaskvalue(varargin)
 %      applied to the GUI before uiaskvalue_OpeningFcn gets called.  An
 %      unrecognized property name or invalid value makes property application
 %      stop.  All inputs are passed to uiaskvalue_OpeningFcn via varargin.
-%
+% 				case 'value'
+% 					if ischar(varargin{index+1})
+% 						handles.ValueType = 'CHAR';
+% 						handles.Value = varargin{index+1};
+% 					else
+% 						handles.ValueType = 'NUM';
+% 						handles.Value = varargin{index+1};
+% 					end
+% 
+% 				case 'valuetype'
+% 					if isequal(lower(varargin{index+1}), 'CHAR')
+% 						handles.ValueType = 'CHAR';
+% 					elseif isequal(lower(varargin{index+1}), 'NUM')
+% 						handles.ValueType = 'NUM';
+% 					else
+% 						disp('Invalid VALUETYPE, using default (NUM)')
+% 						handles.ValueType = 'NUM';
+% 					end
+% 
+% 				case 'valuetext'
+% 					update_ui_str(handles.ValueText, [varargin{index+1} ':']);
+% 					
+% 				case 'questiontext'
+% 					update_ui_str(handles.QuestionText, varargin{index+1});
+% 					
+% 				case 'figurename'
+% 					set(handles.figure1, 'Name', varargin{index+1});%
 %      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
 %      instance to run (singleton)".
 %
@@ -122,6 +148,9 @@ function uiaskvalue_OpeningFcn(hObject, eventdata, handles, varargin)
 	
 	% update gui
 	update_ui_str(handles.ValueCtrl, handles.Value);
+	
+	update_ui_str(handles.SaveCtrl, 'Accept');
+	update_ui_str(handles.CancelCtrl, 'Cancel');
 	
 	% Determine the position of the dialog - centered on the callback figure
 	% if available, else, centered on the screen

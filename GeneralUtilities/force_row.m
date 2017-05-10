@@ -1,33 +1,36 @@
-function ms = bin2ms(bin, Fs)
+function Output = force_row(Input)
 %------------------------------------------------------------------------
-% ms = bin2ms(bin, Fs)
-%------------------------------------------------------------------------
-% TytoLogy -> Utilities Toolbox -> General Utilities
+% Output = forcE_row(Input)
 %------------------------------------------------------------------------
 % 
-% returns corresponding ms for bins bin and sample rate Fs
-%
+% ensures Output is row vector form of Input
+% 
 %------------------------------------------------------------------------
 % Input Arguments:
-% 	bin		# of samples 
-%	Fs			Sample rate (samples/second)
+% 	Input		input vector
 % 
 % Output Arguments:
-% 	ms			milliseconds
+% 	Output	output vector
+%
 %------------------------------------------------------------------------
-% See also: ms2bin, ms2samples, bin2s
+% See also: 
 %------------------------------------------------------------------------
 
 %------------------------------------------------------------------------
-%  Sharad J. Shanbhag
-%	sshanbhag@neomed.edu
+% Sharad J. Shanbhag
+% sshanbhag@neomed.edu
 %------------------------------------------------------------------------
-% Created: ??????????????
+% Created: 24 April, 2017 (SJS)
 %
 % Revisions:
-%	21 February, 2010 (SJS): updated documentation
-%	10 May 2017 (SJS): updated email
+%------------------------------------------------------------------------
+% TO DO:
 %------------------------------------------------------------------------
 
-% duration in milleseconds = 1000 * (samples/seconds) * # of bins (samples)
-ms = (1000/Fs) * bin;
+
+if isempty(Input)
+	Output = [];
+	return
+end
+
+Output = reshape(Input, 1, numel(Input));
