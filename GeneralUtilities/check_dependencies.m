@@ -1,33 +1,43 @@
-function ms = bin2ms(bin, Fs)
+function deps = check_dependencies(function_name)
 %------------------------------------------------------------------------
-% ms = bin2ms(bin, Fs)
+% deps = check_dependencies(function_name)
 %------------------------------------------------------------------------
 % TytoLogy -> Utilities Toolbox -> General Utilities
 %------------------------------------------------------------------------
 % 
-% returns corresponding ms for bins bin and sample rate Fs
+% lists required functions and Matlab toolboxes for given function_name
+% deps struct will contain cell array deps.files listing functions required 
+% (including current paths) and struct array deps.packages listing 
+% toolboxes
 %
 %------------------------------------------------------------------------
 % Input Arguments:
-% 	bin		# of samples 
-%	Fs			Sample rate (samples/second)
+% 	function_name		name of function to be tested
 % 
 % Output Arguments:
-% 	ms			milliseconds
+% 	deps		struct with fields
+% 					files			cell array with file names/paths
+% 					packages		list of Matlab tools required
+% 
 %------------------------------------------------------------------------
-% See also: ms2bin, ms2samples, bin2s
+% See also: 
 %------------------------------------------------------------------------
 
 %------------------------------------------------------------------------
 %  Sharad J. Shanbhag
 %	sshanbhag@neomed.edu
 %------------------------------------------------------------------------
-% Created: ??????????????
+% Created: 10 May, 2017
 %
 % Revisions:
-%	21 February, 2010 (SJS): updated documentation
-%	10 May 2017 (SJS): updated email
 %------------------------------------------------------------------------
 
-% duration in milleseconds = 1000 * (samples/seconds) * # of bins (samples)
-ms = (1000/Fs) * bin;
+if ~ischar(function_name)
+	error('%s: function_name must be a string!', mfilename)
+end
+
+[deps.files, deps.packages] = ...
+		matlab.codetools.requiredFilesAndProducts(function_name);
+
+% make files array more easily readable
+deps.files = deps.files';
