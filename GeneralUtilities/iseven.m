@@ -1,9 +1,11 @@
 function  out = iseven(in)
 %------------------------------------------------------------------------
-% out = iseven(in)
+% out = isodd(in)
 %------------------------------------------------------------------------
-% 
-% 
+% TytoLogy -> Utilities Toolbox -> General Utilities
+%------------------------------------------------------------------------
+%
+%	returns 1 (true) if input value is even, 0 (false) if odd
 % 
 %------------------------------------------------------------------------
 % Input Arguments:
@@ -23,6 +25,7 @@ function  out = iseven(in)
 % Created: 29 September, 2010 (SJS)
 %
 % Revisions:
+%	10 May 2017 (SJS): updated documentation
 %------------------------------------------------------------------------
 
 
