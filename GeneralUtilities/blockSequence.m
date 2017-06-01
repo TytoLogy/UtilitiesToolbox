@@ -22,11 +22,11 @@ function blockSequence = blockSequence(nReps, nTrials)
 % 		>> rSeq = blockSequence(5, 3)
 % 
 % 		rSeq =
-% 			  2     1     3
-% 			  3     1     2
-% 			  2     3     1
-% 			  2     3     1
-% 			  1     3     2
+% 			  1     1     1
+% 			  1     1     2
+% 			  2     2     2
+% 			  2     3     3
+% 			  3     3     3
 % 		  
 % 	So each row of rSeq corresponds to a "rep" of the block stimulus presentation
 % 	and columns are each "trial".  calling ITDs with rSeq gives:
