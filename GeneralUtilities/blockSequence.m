@@ -1,6 +1,6 @@
-function randomSequence = randomSequence(nReps, nTrials)
+function blockSequence = blockSequence(nReps, nTrials)
 %--------------------------------------------------------------------------
-% randomSequence = randomSequence(nReps, nTrials)
+% blockSequence = blockSequence(nReps, nTrials)
 %--------------------------------------------------------------------------
 % TytoLogy: UtilitiesToolbox
 %--------------------------------------------------------------------------
@@ -17,16 +17,16 @@ function randomSequence = randomSequence(nReps, nTrials)
 % 		nReps = 5
 % 		nTrials = length(ITDs) = 3;
 % 		
-% 	and I call randomSequence() as follows:
+% 	and I call blockSequence() as follows:
 % 
-% 		>> rSeq = randomSequence(5, 3)
+% 		>> rSeq = blockSequence(5, 3)
 % 
 % 		rSeq =
-% 			  2     1     3
-% 			  3     1     2
-% 			  2     3     1
-% 			  2     3     1
-% 			  1     3     2
+% 			  1     1     1
+% 			  1     1     2
+% 			  2     2     2
+% 			  2     3     3
+% 			  3     3     3
 % 		  
 % 	So each row of rSeq corresponds to a "rep" of the block stimulus presentation
 % 	and columns are each "trial".  calling ITDs with rSeq gives:
@@ -45,9 +45,9 @@ function randomSequence = randomSequence(nReps, nTrials)
 %	nTrials	# trials (# stimulus types)
 %
 % Output Arguments:
-%	randomSequence	[nReps X nTrials] sequence of randomized indices
+%	blockSequence	[nReps X nTrials] sequence of blocked indices
 %--------------------------------------------------------------------------
-% See Also: HPCurve_buildStimCache, HPSearch
+% See Also: HPCurve_buildStimCache, HPSearch, randomSequence
 %--------------------------------------------------------------------------
 
 %--------------------------------------------------------------------------
@@ -55,7 +55,7 @@ function randomSequence = randomSequence(nReps, nTrials)
 % sshanbhag@neomed.edu
 %--------------------------------------------------------------------------
 % Revision History
-%	24 May, 2016 (SJS): created from HPCurve_randomSequence
+%	31 May, 2017 (SJS): created from randomSequence
 %--------------------------------------------------------------------------
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -66,11 +66,28 @@ function randomSequence = randomSequence(nReps, nTrials)
 % stimulus parameter)
 
 % create array of zeros
-randomSequence = zeros(nReps, nTrials);
+blockSequence = zeros(nReps, nTrials);
 
-% create a random sequence 
+% % create a blocked sequence
+% for m = 1:nReps
+% 	blockSequence(m, :) = randperm(nTrials);
+% end
+
+blocklist = zeros(nReps*nTrials);
+listindex = 1;
+for t = 1:nTrials
+	for r = 1:nReps
+		blocklist(listindex) = t;
+		listindex = listindex + 1;
+	end
+end
+% create a blocked sequence
+listindex = 1;
 for m = 1:nReps
-	randomSequence(m, :) = randperm(nTrials);
+	for n = 1:nTrials
+		blockSequence(m, n) = blocklist(listindex);
+		listindex = listindex + 1;
+	end
 end
 
 	
