@@ -100,7 +100,7 @@ function uiaskvalue_OpeningFcn(hObject, eventdata, handles, varargin)
 		set(handles.figure1, 'Name', '');
 
 	else
-		for index = 1:2:(nargin-3),
+		for index = 1:2:(nargin-3)
 
 			if (nargin-3) == index
 				break
@@ -117,9 +117,10 @@ function uiaskvalue_OpeningFcn(hObject, eventdata, handles, varargin)
 					end
 
 				case 'valuetype'
-					if isequal(lower(varargin{index+1}), 'CHAR')
+% 					fprintf('setting %s to %s\n', varargin{index}, varargin{index+1})
+					if isequal(upper(varargin{index+1}), 'CHAR')
 						handles.ValueType = 'CHAR';
-					elseif isequal(lower(varargin{index+1}), 'NUM')
+					elseif isequal(upper(varargin{index+1}), 'NUM')
 						handles.ValueType = 'NUM';
 					else
 						disp('Invalid VALUETYPE, using default (NUM)')
