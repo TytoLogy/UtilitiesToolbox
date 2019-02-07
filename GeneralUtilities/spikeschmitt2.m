@@ -1,6 +1,6 @@
-function spikes = spikeschmitt2(spikedata, vthresh, spwindow, Fs)
+function spikes = spikeschmitt2(spikedata, vthresh, spwindow, Fs, varargin)
 %------------------------------------------------------------------------
-% spikes = spikeschmitt2(spikedata, vthresh, spwindow, Fs)
+% spikes = spikeschmitt2(spikedata, vthresh, spwindow, Fs, <options>)
 %------------------------------------------------------------------------
 % Utilities Toolbox
 %------------------------------------------------------------------------
@@ -14,6 +14,9 @@ function spikes = spikeschmitt2(spikedata, vthresh, spwindow, Fs)
 % 	vthresh			voltage threshold
 % 	spwindow			time window (refractory period) in milliseconds
 %	Fs					data sampling rate (samples/second)
+%
+%	Options:
+%		'ms'			spike times will be in milliseconds
 % 
 % Output:
 % 	spikes			bins with spikes (multiply by dt to get time)
@@ -30,7 +33,7 @@ function spikes = spikeschmitt2(spikedata, vthresh, spwindow, Fs)
 
 %------------------------------------------------------------------------
 %  Sharad Shanbhag
-%	sshanbhag@neoucom.edu
+%	sshanbhag@neomed.edu
 %------------------------------------------------------------------------
 % Created: ????????????
 %
@@ -38,13 +41,17 @@ function spikes = spikeschmitt2(spikedata, vthresh, spwindow, Fs)
 % 	8 June, 2010 (SJS): 
 % 		-	updated to allow for multichannel/multisweep detection
 % 		-	updated comments/documentation
+%	6 Feb 2019 (SJS)
+%		- added option for milliseconds
 %------------------------------------------------------------------------
 % TO DO:
 % 		-	there's gotta be a way to vectorize the thresholding algorithm...
 % 			these loops are SLOOOOOW....
 %------------------------------------------------------------------------
-			
-if nargin ~= 4
+
+Units = 'DEFAULT';
+
+if nargin < 4
 	error('%s: bad inputs', mfilename);
 end
 
@@ -54,11 +61,20 @@ if isempty(spikedata)
 	return
 end
 
+if ~isempty(varargin)
+	if strcmpi(varargin{1}, 'ms')
+		Units = 'MS';
+	else
+		error('%s: unknown units %s', mfilename, varargin{1});
+	end
+end
+
 % convert spike window in msec to bins (samples)
 spwindow_bins = ceil(spwindow*0.001*Fs);
 if spwindow_bins <= 0
 	spwindow_bins = 10;
-	warning('%s: Using bin size of 10 since defined spwindow was <= 0', mfilename)
+	warning('%s: Using bin size of 10 since defined spwindow was <= 0', ...
+						mfilename)
 end
 
 [N, M] = size(spikedata);
@@ -73,7 +89,7 @@ if N == 1
 		while bin<M
 			if spikedata(bin) > vthresh
 				nspikes = nspikes + 1;
-				spikes(nspikes) = bin;
+				spikes(nspikes) = bin; %#ok<AGROW>
 				% wait for the spike refractory period 
 				bin = bin + spwindow_bins;
 			else
@@ -84,7 +100,7 @@ if N == 1
 		while bin<M
 			if spikedata(bin) < vthresh
 				nspikes = nspikes + 1;
-				spikes(nspikes) = bin;
+				spikes(nspikes) = bin; %#ok<AGROW>
 				% wait for the spike refractory period 
 				bin = bin + spwindow_bins;
 			else
@@ -92,7 +108,7 @@ if N == 1
 			end
 		end
 	end
-	
+
 else
 	% otherwise, spikes is a cell array
 	spikes = cell(N, 1);
@@ -106,7 +122,7 @@ else
 			while bin<M
 				if spikedata(row, bin) > vthresh
 					nspikes = nspikes + 1;
-					tmpspikes(nspikes) = bin;
+					tmpspikes(nspikes) = bin; %#ok<AGROW>
 					% wait for the spike refractory period 
 					bin = bin + spwindow_bins;
 				else
@@ -117,7 +133,7 @@ else
 			while bin<M
 				if spikedata(row, bin) < vthresh
 					nspikes = nspikes + 1;
-					tmpspikes(nspikes) = bin;
+					tmpspikes(nspikes) = bin; %#ok<AGROW>
 					% wait for the spike refractory period 
 					bin = bin + spwindow_bins;
 				else
@@ -128,3 +144,16 @@ else
 		spikes{row} = tmpspikes;
 	end
 end
+
+if strcmpi(Units, 'MS')
+	ms_scale = (1000/Fs);
+	if iscell(spikes)
+		for n = 1:length(spikes)
+			spikes{n} = ms_scale * spikes{n}; %#ok<AGROW>
+		end
+	else
+		spikes = ms_scale * spikes;
+	end
+end
+
+		
