@@ -1,10 +1,10 @@
-function rSeq = randomSequence(nReps, nTrials)
+function sSeq = sequentialSequence(nReps, nTrials)
 %--------------------------------------------------------------------------
-% rSeq = randomSequence(nReps, nTrials)
+% sSeq = sequentialSequence(nReps, nTrials)
 %--------------------------------------------------------------------------
 % TytoLogy: UtilitiesToolbox
 %--------------------------------------------------------------------------
-% generate the randomized trial sequence
+% generate the sequential trial sequence
 % randomize across nTrials (# of different values for varying
 % stimulus parameter) for nReps
 % 
@@ -17,9 +17,9 @@ function rSeq = randomSequence(nReps, nTrials)
 % 		nReps = 5
 % 		nTrials = length(ITDs) = 3;
 % 		
-% 	and I call randomSequence() as follows:
+% 	and I call sequentialSequence() as follows:
 % 
-% 	>> rSeq = randomSequence(5, 3)
+% 	>> rSeq = sequentialSequence(5, 3)
 % 
 % 	rSeq =
 % 
@@ -32,7 +32,7 @@ function rSeq = randomSequence(nReps, nTrials)
 % 	Note that rows and columns, while having size of [nReps, nTrials] do not
 %  correspond to "blocks" of stimuli as would be found from blockSequence.
 %
-%  To get the random sequence of ITDs to present:
+%  To get the sequence of ITDs to present:
 % 	
 % 	>> ITDs(rSeq)
 % 
@@ -48,9 +48,9 @@ function rSeq = randomSequence(nReps, nTrials)
 %	nTrials	# trials (# stimulus types)
 %
 % Output Arguments:
-%	rS		[nReps X nTrials] sequence of randomized indices NOT BLOCKED!!!
+%	rS		[nReps X nTrials] sequence of indices NOT BLOCKED!!!
 %--------------------------------------------------------------------------
-% See Also: HPCurve_buildStimCache, HPSearch, blockSequence
+% See Also: HPCurve_buildStimCache, HPSearch, blockSequence, randomSequence
 %--------------------------------------------------------------------------
 
 %--------------------------------------------------------------------------
@@ -58,11 +58,11 @@ function rSeq = randomSequence(nReps, nTrials)
 % sshanbhag@neomed.edu
 %--------------------------------------------------------------------------
 % Revision History
-%	24 May, 2016 (SJS): created from HPCurve_randomSequence
+%	15 April, 2019 (SJS): created from randomSequence
 %--------------------------------------------------------------------------
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% generate the randomized trial sequence
+% generate the trial sequence
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % randomize across nTrials (# of different values for varying
@@ -71,15 +71,18 @@ function rSeq = randomSequence(nReps, nTrials)
 % create list of indices for randomization
 tlist = zeros(nReps*nTrials, 1);
 tlindex = 1;
-for r = 1:nReps
-	for t = 1:nTrials
+for t = 1:nTrials
+	for r = 1:nReps
 		tlist(tlindex) = t;
 		tlindex = tlindex + 1;
 	end
 end
-% random list of indices into tlist
-rindex = randperm(length(tlist));
-% create a random sequence, stored in rows of rSeq
-rSeq = reshape(tlist(rindex), nReps, nTrials);
-
-	
+% create sequence, stored in rows of sSeq
+sSeq = zeros(nReps, nTrials);
+tlindex = 1;
+for r = 1:nReps
+	for t = 1:nTrials
+		sSeq(r, t) = tlist(tlindex);
+		tlindex = tlindex + 1;
+	end
+end
