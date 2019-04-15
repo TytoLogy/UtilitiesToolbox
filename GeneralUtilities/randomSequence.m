@@ -1,6 +1,6 @@
-function randomSequence = randomSequence(nReps, nTrials)
+function rSeq = randomSequence(nReps, nTrials)
 %--------------------------------------------------------------------------
-% randomSequence = randomSequence(nReps, nTrials)
+% rSeq = randomSequence(nReps, nTrials)
 %--------------------------------------------------------------------------
 % TytoLogy: UtilitiesToolbox
 %--------------------------------------------------------------------------
@@ -19,35 +19,38 @@ function randomSequence = randomSequence(nReps, nTrials)
 % 		
 % 	and I call randomSequence() as follows:
 % 
-% 		>> rSeq = randomSequence(5, 3)
+% 	>> rSeq = randomSequence(5, 3)
 % 
-% 		rSeq =
-% 			  2     1     3
-% 			  3     1     2
-% 			  2     3     1
-% 			  2     3     1
-% 			  1     3     2
+% 	rSeq =
+% 
+% 			3     3     1
+% 			1     2     3
+% 			1     2     2
+% 			3     1     2
+% 			3     2     1
 % 		  
-% 	So each row of rSeq corresponds to a "rep" of the block stimulus presentation
-% 	and columns are each "trial".  calling ITDs with rSeq gives:
+% 	Note that rows and columns, while having size of [nReps, nTrials] do not
+%  correspond to "blocks" of stimuli as would be found from blockSequence.
+%
+%  To get the random sequence of ITDs to present:
 % 	
-% 		>> ITDs(rSeq)
+% 	>> ITDs(rSeq)
 % 
-% 		ans =
-% 			  0  -100   100
+% 	ans =
+% 			100   100  -100
+% 		  -100     0   100
+% 		  -100     0     0
 % 			100  -100     0
-% 			  0   100  -100
-% 			  0   100  -100
-% 		  -100   100     0
+% 			100     0  -100
 %--------------------------------------------------------------------------
 % Input Arguments:
 %	nReps		# reps per stimulus type
 %	nTrials	# trials (# stimulus types)
 %
 % Output Arguments:
-%	randomSequence	[nReps X nTrials] sequence of randomized indices
+%	rS		[nReps X nTrials] sequence of randomized indices NOT BLOCKED!!!
 %--------------------------------------------------------------------------
-% See Also: HPCurve_buildStimCache, HPSearch
+% See Also: HPCurve_buildStimCache, HPSearch, blockSequence
 %--------------------------------------------------------------------------
 
 %--------------------------------------------------------------------------
@@ -63,14 +66,20 @@ function randomSequence = randomSequence(nReps, nTrials)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % randomize across nTrials (# of different values for varying
-% stimulus parameter)
+% stimulus parameter) for nReps
 
-% create array of zeros
-randomSequence = zeros(nReps, nTrials);
-
-% create a random sequence 
-for m = 1:nReps
-	randomSequence(m, :) = randperm(nTrials);
+% create list of indices for randomization
+tlist = zeros(nReps*nTrials);
+tlindex = 1;
+for r = 1:nReps
+	for t = 1:nTrials
+		tlist(tlindex) = t;
+		tlindex = tlindex + 1;
+	end
 end
+% random list of indices into tlist
+rindex = randperm(length(tlist));
+% create a random sequence, stored in rows of rSeq
+rSeq = reshape(tlist(rindex), nReps, nTrials);
 
 	

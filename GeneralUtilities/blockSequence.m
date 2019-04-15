@@ -1,17 +1,19 @@
-function blockSequence = blockSequence(nReps, nTrials)
+function bSeq = blockSequence(nReps, nTrials)
 %--------------------------------------------------------------------------
-% blockSequence = blockSequence(nReps, nTrials)
+% bSeq = blockSequence(nReps, nTrials)
 %--------------------------------------------------------------------------
 % TytoLogy: UtilitiesToolbox
 %--------------------------------------------------------------------------
-% generate the randomized trial sequence
-% randomize across nTrials (# of different values for varying
-% stimulus parameter) for nReps
+% generate the block randomized trial sequence
+% present nTrials (# of different values for varying
+% stimulus parameter) in blocks for nReps
 % 
 % Example:
 % 
 % 	I'd like to test ITDs from -100 to 100 in steps of 100,
-% 	so ITDs = [-100 0 100] & I want 5 repetitions of each ITD value.
+% 	so ITDs = [-100 0 100] & I want 5 repetitions of each ITD value, but
+% 	each ITD value should be presented once (in random order) before being
+% 	presented again.
 % 	
 % 	so, 
 % 		nReps = 5
@@ -19,33 +21,33 @@ function blockSequence = blockSequence(nReps, nTrials)
 % 		
 % 	and I call blockSequence() as follows:
 % 
-% 		>> rSeq = blockSequence(5, 3)
+% 		>> bSeq = blockSequence(5, 3)
 % 
-% 		rSeq =
-% 			  1     1     1
-% 			  1     1     2
-% 			  2     2     2
-% 			  2     3     3
-% 			  3     3     3
+% 		bSeq =
+% 				2     1     3
+% 				1     3     2
+% 				3     1     2
+% 				1     3     2
+% 				3     2     1
 % 		  
-% 	So each row of rSeq corresponds to a "rep" of the block stimulus presentation
-% 	and columns are each "trial".  calling ITDs with rSeq gives:
+% 	So each row of bSeq corresponds to a "rep" of the block stimulus presentation
+% 	and columns are each "trial".  calling ITDs with bSeq as indices gives:
 % 	
-% 		>> ITDs(rSeq)
+% 		>> ITDs(bSeq)
 % 
 % 		ans =
-% 			  0  -100   100
-% 			100  -100     0
-% 			  0   100  -100
-% 			  0   100  -100
-% 		  -100   100     0
+% 				0  -100   100
+% 				-100   100     0
+% 				100  -100     0
+% 				-100   100     0
+% 				100     0  -100
 %--------------------------------------------------------------------------
 % Input Arguments:
 %	nReps		# reps per stimulus type
 %	nTrials	# trials (# stimulus types)
 %
 % Output Arguments:
-%	blockSequence	[nReps X nTrials] sequence of blocked indices
+%	bSeq	[nReps X nTrials] sequence of blocked indices
 %--------------------------------------------------------------------------
 % See Also: HPCurve_buildStimCache, HPSearch, randomSequence
 %--------------------------------------------------------------------------
@@ -59,35 +61,18 @@ function blockSequence = blockSequence(nReps, nTrials)
 %--------------------------------------------------------------------------
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% generate the randomized trial sequence
+% generate the blocked trial sequence
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % randomize across nTrials (# of different values for varying
 % stimulus parameter)
 
 % create array of zeros
-blockSequence = zeros(nReps, nTrials);
+bSeq = zeros(nReps, nTrials);
 
-% % create a blocked sequence
-% for m = 1:nReps
-% 	blockSequence(m, :) = randperm(nTrials);
-% end
-
-blocklist = zeros(nReps*nTrials);
-listindex = 1;
-for t = 1:nTrials
-	for r = 1:nReps
-		blocklist(listindex) = t;
-		listindex = listindex + 1;
-	end
-end
-% create a blocked sequence
-listindex = 1;
+% create a random sequence for each rep, store in rows of bSeq
 for m = 1:nReps
-	for n = 1:nTrials
-		blockSequence(m, n) = blocklist(listindex);
-		listindex = listindex + 1;
-	end
+	bSeq(m, :) = randperm(nTrials);
 end
 
 	
