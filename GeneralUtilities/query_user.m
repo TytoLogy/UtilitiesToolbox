@@ -20,11 +20,12 @@ function outval = query_user(msgtxt, default)
 
 %------------------------------------------------------------------------
 % Sharad J. Shanbhag
-% sharad.shanbhag@einstein.yu.edu
+% sshanbhag@neomed.edu
 %------------------------------------------------------------------------
 % Created: ???????
 %
 % Revisions:
+%	23 Apr 2019 (SJS): some housekeeping
 %------------------------------------------------------------------------
 
 if nargin == 0
@@ -44,12 +45,12 @@ end
 
 inval = [];
 
-while length(inval) == 0
+while length(inval) == 0 %#ok<ISMT>
 
 	inval = input(outtxt, 's');
-	if strcmp(lower(inval), 'y')
+	if strcmpi(inval, 'y')
 		outval = 1;
-	elseif strcmp(lower(inval), 'n')
+	elseif strcmpi(inval, 'n')
 		outval = 0;
 	elseif nargin == 2 && isempty(inval)
 		outval = default;
