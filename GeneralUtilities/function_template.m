@@ -2,6 +2,8 @@ function Output = function_template(Input)
 %------------------------------------------------------------------------
 % Output = function_template(Input)
 %------------------------------------------------------------------------
+% <project>:<subproject>:<function_name>
+%------------------------------------------------------------------------
 % 
 % Description
 % 
@@ -20,7 +22,7 @@ function Output = function_template(Input)
 % Sharad J. Shanbhag
 % sshanbhag@neomed.edu
 %------------------------------------------------------------------------
-% Created: XX XXXX, 2016 (SJS)
+% Created: XX XXXX, 2020 (SJS)
 %
 % Revisions:
 %------------------------------------------------------------------------
