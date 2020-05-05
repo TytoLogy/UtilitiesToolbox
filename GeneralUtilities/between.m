@@ -14,7 +14,8 @@ function outval = between(val, low, high)
 %	
 % Output Arguments:
 % 	outVal	1 if val is in range [low, high], otherwise 0
-%
+%				* note that range includes low and high values, so maybe
+%				  this is more accurately called "within"??
 %------------------------------------------------------------------------
 % See also: max, min
 %------------------------------------------------------------------------
@@ -27,6 +28,7 @@ function outval = between(val, low, high)
 %
 % Revisions:
 %	6 Sep 2012 (SJS): updated email, comments, vectorized code
+%	5 May 2020 (SJS): modified check for high < low (from old high <= low)
 %------------------------------------------------------------------------
 
 %% check inputs
@@ -34,7 +36,7 @@ if nargin ~= 3
 	error('between: need val, low and high arguments');
 end
 
-if high <= low
+if high < low
 	error('between: high must be greater than low value');
 end
 
