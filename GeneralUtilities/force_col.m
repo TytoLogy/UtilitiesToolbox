@@ -2,7 +2,9 @@ function Output = force_col(Input)
 %------------------------------------------------------------------------
 % Output = force_col(Input)
 %------------------------------------------------------------------------
-% 
+% UtilitiesToolbox:GeneralUtilities
+%------------------------------------------------------------------------
+%
 % ensures Output is column vector form of Input
 % 
 %------------------------------------------------------------------------
@@ -13,7 +15,7 @@ function Output = force_col(Input)
 % 	Output	output vector
 %
 %------------------------------------------------------------------------
-% See also: 
+% See also: force_row, reshape
 %------------------------------------------------------------------------
 
 %------------------------------------------------------------------------
@@ -23,14 +25,15 @@ function Output = force_col(Input)
 % Created: 7 May, 2017 (SJS)
 %
 % Revisions:
+%  8 Sep 2022 (SJS): updated docs
 %------------------------------------------------------------------------
 % TO DO:
 %------------------------------------------------------------------------
 
-
+% if empty return empty
 if isempty(Input)
 	Output = [];
 	return
 end
-
+% reshape input
 Output = reshape(Input, numel(Input), 1);
