@@ -1,6 +1,13 @@
 function t = timevec(N, Fs, varargin)
 % t = timevec(N, Fs, unit)
 % 
+%  N  length of time vector in bins
+%  Fs sample rate, samples/sec
+%
+%  option: 'ms'   time in milliseconds
+%           's'   time in seconds
+%
+
 
 if ~isempty(varargin)
 	switch upper(varargin{1})
