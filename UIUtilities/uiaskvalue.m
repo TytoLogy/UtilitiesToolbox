@@ -285,7 +285,7 @@ function SaveCtrl_Callback(hObject, eventdata, handles)
 %------------------------------------------------------------------------------
 % --- Executes on button press in CancelCtrl.
 function CancelCtrl_Callback(hObject, eventdata, handles)
-	handles.output = handles.OriginalValue;
+	handles.output = NaN;
 
 	% Update handles structure
 	guidata(hObject, handles);
