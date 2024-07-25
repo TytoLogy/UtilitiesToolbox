@@ -1,12 +1,10 @@
 function [y, start_bins, end_bins] = block_rms(x, rmsbins)
 %--------------------------------------------------------------------------
-% out = findWavOnsetOffset(varargin)
+% [y, start_bins, end_bins] = block_rms(x, rmsbins)
 %--------------------------------------------------------------------------
 % TytoLogy:UtilitiesToolbox:GeneralUtilities
 %--------------------------------------------------------------------------
-%
 % computes root-mean-square (rms) of vector x in windows of rmsbins size
-%
 %--------------------------------------------------------------------------
 % Input Arguments:
 %	x			signal (vector)
