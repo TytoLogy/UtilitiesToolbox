@@ -72,9 +72,23 @@ if(nargin > 3)
           set(hObject, 'Name', varargin{index+1});
          case 'string'
           set(handles.text1, 'String', varargin{index+1});
+         case 'default'
+          if ~any(strcmpi(varargin{index+1}, {'yes', 'no'}))
+             error('Default option must be yes or no')
+          else
+             if strcmpi(varargin{index+1}, 'yes')
+               handles.output = 'Yes';
+             else
+               handles.output = 'No';
+             end
+          end
         end
     end
 end
+
+% Update handles structure
+guidata(hObject, handles);
+
 
 % Determine the position of the dialog - centered on the callback figure
 % if available, else, centered on the screen
